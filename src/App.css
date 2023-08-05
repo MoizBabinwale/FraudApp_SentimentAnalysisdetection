@@ -1,0 +1,277 @@
+/* CSS for the outer div containing the navbar and image container */
+.navContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+/* CSS for the navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+}
+
+/* CSS for the logo container */
+.logo {
+  display: flex;
+  align-items: center;
+
+}
+
+/* CSS for the logo text */
+.logo a {
+  color: black;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.logo a :hover {
+  color: rgb(54, 54, 54);
+  transform: rotateY('10');
+}
+
+/* CSS for the list container */
+ul.click {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin-left: auto;
+  /* This will push the links to the right */
+  padding: 15px;
+}
+
+/* CSS for the list items (li) */
+ul.click li {
+  /* margin-left: 20px; */
+}
+
+/* CSS for the lines on hover */
+ul.click li {
+  position: relative;
+  /* Set the li elements as relative positioning */
+}
+
+ul.click li::before,
+ul.click li::after {
+  position: absolute;
+  content: " ";
+  width: 100%;
+  height: 2px;
+  background-color: rgb(196, 90, 49);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+ul.click li::before {
+  top: 5;
+  width: 75%;
+  /* Place the line at the top of the li element */
+}
+
+ul.click li::after {
+  bottom: 0;
+  left: 0;
+  width: 75%;
+  /* Place the line at the bottom of the li element */
+}
+
+ul.click li:hover::before,
+ul.click li:hover::after {
+  opacity: 1;
+}
+
+/* CSS for the links (a) */
+ul.click a {
+  color: black;
+  text-decoration: none;
+  font-size: 20px;
+  padding-right: 20px;
+  font-weight: 700;
+}
+
+ul.click a :hover {
+  color: rgb(54, 54, 54);
+}
+
+/* CSS for the image container */
+.ImageContainer {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* CSS for the image */
+.ImageContainer img {
+  width: 100%;
+  height: 60vh;
+}
+
+nav img {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  nav img {
+    cursor: pointer;
+    display: inline-block;
+    width: 32px;
+    padding-top: 4px;
+  }
+
+  ul.click {
+    display: none;
+  }
+
+  .show-links {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    padding: 0;
+    /* Remove padding to have links stack without spacing */
+    background-color: rgb(128, 188, 213);
+    /* Optional: Add a white background for the mobile menu */
+    position: absolute;
+    /* Optional: Position the mobile menu to overlay on the page content */
+    top: 70px;
+    /* Optional: Adjust the top positioning as per your design */
+    right: 20px;
+    border-radius: 2px;
+    padding: 5px;
+    margin-right: 6px;
+    font-weight: 400;
+    font-size: 25px;
+    /* Optional: Adjust the right positioning as per your design */
+    animation: slideDown 0.5s ease;
+  }
+
+  /* CSS Animation for sliding down the mobile menu */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translate(0, -10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+
+  ul.show-links li {
+    list-style-type: none;
+  }
+
+  ul.show-links a {
+    color: black;
+    text-decoration: none;
+  }
+
+  ul.show-links a:last-child {
+    margin-bottom: 0;
+    /* Optional: Remove margin from the last link in the mobile menu */
+    text-decoration: none;
+  }
+
+}
+
+.browseFile {
+  background-color: black;
+  color: aliceblue;
+  border-radius: 20px;
+  transition: transform 0.5s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.browseFile:hover {
+  background-color: #333;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-self: center;
+  margin-top: 3%;
+}
+
+
+.background-animation {
+  background: linear-gradient(to right, #e98e86, #4997cb, #53b47b);
+  /* z-index: -1; */
+}
+
+/* Animation keyframes */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.background-animation{
+  width: 50%;
+}
+@media screen and (max-width: 768px) {
+  .background-animation{
+    width:80%;
+    padding: 15px;
+  }
+}
+.maualUpload{
+  width: 70%;
+}
+@media screen and (max-width: 768px) {
+  .maualUpload{
+    width:80%;
+    padding: 15px;
+  }
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  padding: 10px;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-form label {
+  margin-bottom: 10px;
+}
+
+
+.upload-button {
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.upload-button:hover {
+  background-color: #333;
+}
+
+@media screen and (max-width: 768px) {
+  .upload-container {
+      flex-direction: column;
+  }
+}
