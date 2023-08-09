@@ -5,7 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 function Register() {
-
+    const [userExists, setUserExists] = useState(false);
     const [isShowPassowrd, setIsShowPassword] = useState(false)
     const navigate = useNavigate()
     useEffect(() => {
@@ -28,7 +28,7 @@ function Register() {
         if (email === "" || password === "" || name === "" || userid === "" || number === "") {
             return toast.error('Please Enter Proper User Data !', {
                 position: "top-right",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -41,7 +41,7 @@ function Register() {
         if (number.length !== 10) {
             toast.error('Please 10 Digits Number!', {
                 position: "top-right",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -70,11 +70,11 @@ function Register() {
                 password,
             };
             const response = await axios.post(signUp, JSON.stringify(requestData), { headers });
-            console.log('Login Response:', response.data);
+            console.log('signup Response:', response);
             if (response.status === 200) {
                 toast.success('Register success!', {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -84,13 +84,19 @@ function Register() {
                 });
                 setTimeout(() => {
                     navigate("/")
-                }, 3500);
+                }, 2500);
+            } else {
+                setUserExists(true)
             }
         } catch (error) {
             console.log("error ", error);
+            if (error) {
+                setUserExists(true)
+            }
         }
     }
     return (
+
         <div id="HomeContainer" className="d-flex justify-content-center align-items-center mt-5 mb-5">
             <div className="background-animation p-4 rounded">
                 <h2 className="mb-4">Register</h2>
@@ -99,6 +105,10 @@ function Register() {
                         <label >Name</label>
                     </div>
                     <div className="col-12 col-sm-6">
+                        {userExists && (
+                            <p style={{ color: 'red', marginBottom: "0", fontSize: "small" }}>User already exists!</p>
+
+                        )}
                         <input type="text" className="form-control" id="username" />
                     </div>
                 </div>
@@ -115,6 +125,7 @@ function Register() {
                         <label>Email</label>
                     </div>
                     <div className="col-12 col-sm-6">
+
                         <input type="email" className="form-control" id="email" />
                     </div>
                 </div>
@@ -137,7 +148,7 @@ function Register() {
                         <label>Contact Number</label>
                     </div>
                     <div className="col-12 col-sm-6">
-                        <input type="number" className="form-control" id="number" />
+                        <input type="number" className="form-control" id="number" min="0" />
                     </div>
                 </div>
                 <div>

@@ -75,7 +75,7 @@ function UserList() {
     return (
         <div>
             {isadmin ? (
-                <div className="container d-flex  w-100 align-items-center">
+                <div className="Table container d-flex  w-100 align-items-center">
                     <div className="d-flex flex-column  w-100 align-items-center">
                         <table className="table table-bordered" style={{ width: '90%' }}>
                             <thead className="table-dark">

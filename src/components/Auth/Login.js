@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { logIn } from '../../api/index';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import Loading from '../Loading';
 function Login() {
     const navigate = useNavigate()
     const [isShowPassowrd, setIsShowPassword] = useState(false)
+    const [isLoading, setLoading] = useState(false)
     const showPassword = () => {
         setIsShowPassword(!isShowPassowrd)
     }
@@ -17,6 +18,7 @@ function Login() {
         }
     }, [navigate])
     const handleLogin = async (e) => {
+        setLoading(true)
         e.preventDefault()
         const userId = document.getElementById("email").value
         const password = document.getElementById("password").value
@@ -44,9 +46,11 @@ function Login() {
             const response = await axios.post(logIn, requestData, { headers })
             if (response.status === 200) {
                 console.log(response);
+                var userDetails = response.data
+                sessionStorage.setItem("userDetails", JSON.stringify(userDetails))
                 toast.success('Login success!', {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -65,40 +69,59 @@ function Login() {
                         sessionStorage.setItem("isLogin", true)
                         window.location.reload()
                     }
-                }, 3500);
+                }, 2500);
+            } else {
+                toast.error('User does not exist...!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                return;
             }
+            setLoading(false)
         } catch (error) {
             console.log("error ", error);
         }
     }
-    return (
-        <div id="HomeContainer" className="d-flex justify-content-center align-items-center mt-5 mb-5">
-            <form className="background-animation HomeContainer p-4">
-                <h2 className="mb-4">Login</h2>
-                <div className="row mb-2">
-                    <div className="col-12 col-sm-6">
-                        <label >Email</label>
-                    </div>
-                    <div className="col-12 col-sm-6">
-                        <input type="text" className="form-control" id="email" />
-                    </div>
-                </div>
-                <div className="row mb-2">
-                    <div className="col-12 col-sm-6">
-                        <label>Password</label>
-                    </div>
-                    <div className="col-12 col-sm-6">
-                        <div className="d-flex">
-                            <input type={isShowPassowrd ? "text" : "password"} className="form-control" id="password" style={{ width: "90%" }} />
-                            <button style={{ marginLeft: "5px", color: "black", border: "0", background: "none" }} type="button" onClick={showPassword} id="togglePassword">
-                                <i className={`fa ${isShowPassowrd ? "fa-eye-slash" : "fa-eye"}`} aria-hidden="true"></i>
-                            </button>
+    return (<>
+        {isLoading ? (
+            <Loading />
+        ) : (
+            <div id="HomeContainer" className="d-flex justify-content-center align-items-center mt-5 mb-5">
+                <form className="background-animation HomeContainer p-4">
+                    <h2 className="mb-4">Login</h2>
+                    <div className="row mb-2">
+                        <div className="col-12 col-sm-6">
+                            <label >Email/UserId/Phone Number</label>
+                        </div>
+                        <div className="col-12 col-sm-6">
+                            <input type="text" className="form-control" id="email" />
                         </div>
                     </div>
-                </div>
-                <button type="submit" className="btn btn-success" onClick={handleLogin}>Login</button>
-            </form>
-        </div>
+                    <div className="row mb-2">
+                        <div className="col-12 col-sm-6">
+                            <label>Password</label>
+                        </div>
+                        <div className="col-12 col-sm-6">
+                            <div className="d-flex">
+                                <input type={isShowPassowrd ? "text" : "password"} className="form-control" id="password" style={{ width: "90%" }} />
+                                <button style={{ marginLeft: "5px", color: "black", border: "0", background: "none" }} type="button" onClick={showPassword} id="togglePassword">
+                                    <i className={`fa ${isShowPassowrd ? "fa-eye-slash" : "fa-eye"}`} aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" className="btn btn-success" onClick={handleLogin}>Login</button>
+                </form>
+            </div>
+        )
+        }
+    </>
     )
 }
 

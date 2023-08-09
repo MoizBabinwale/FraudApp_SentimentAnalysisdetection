@@ -81,6 +81,11 @@ ul.click li:hover::before,
 ul.click li:hover::after {
   opacity: 1;
 }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 /* CSS for the links (a) */
 ul.click a {
@@ -275,3 +280,103 @@ body {
       flex-direction: column;
   }
 }
+
+/* YourComponent.css */
+.container {
+  padding: 20px;
+}
+
+.input-group {
+  margin-top: 20px;
+}
+
+.form-control {
+  resize: none;
+}
+
+/* Responsive styles for small devices */
+@media (max-width: 576px) {
+  .col-lg-6 {
+    width: 100%;
+  }
+}
+
+.Table{
+  width: 100%;
+}
+@media screen and (max-width:768px) {
+  .Table{
+    width: 80%;
+  }
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35vh;
+}
+
+.cube {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform-style: preserve-3d;
+  animation: rotate 2s infinite linear;
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0.7;
+}
+
+.front { transform: translateZ(40px); }
+.back { transform: translateZ(-40px); }
+.top { transform: rotateX(90deg) translateZ(-40px); }
+.bottom { transform: rotateX(-90deg) translateZ(-40px); }
+.right { transform: rotateY(90deg) translateZ(-40px); }
+.left { transform: rotateY(-90deg) translateZ(-40px); }
+
+@keyframes rotate {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+.loading-bar-container {
+  width: 100%;
+  height: 8px; /* Adjust the height as needed */
+  background-color: #f0f0f0; /* Background color for the loading bar container */
+  overflow: hidden; /* Hide the overflow when the loading bar exceeds the container width */
+}
+
+.loading-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px; /* Adjust the height as needed */
+  background-color: #ffffff; /* Background color for the loading bar container */
+  overflow: hidden; /* Hide the overflow when the loading bar exceeds the container width */
+  margin-top:63px
+}
+
+.loading-bar {
+  width: 100px; /* Initial width of the loading bar */
+  height: 3vh;
+  background-color: #3498db; /* Blue color for the loading bar */
+  animation: moveBar 2s linear infinite; /* Animation for moving the bar */
+  border-radius: 20px;
+
+}
+
+@keyframes moveBar {
+  0%, 100% { transform: translateX(-100%); } /* Initial and final positions */
+  50% { transform: translateX(100%); } /* Move right to left */
+}
+
