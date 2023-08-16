@@ -83,7 +83,7 @@ function Register() {
                     theme: "light",
                 });
                 setTimeout(() => {
-                    navigate("/")
+                    navigate("/login")
                 }, 2500);
             } else {
                 setUserExists(true)

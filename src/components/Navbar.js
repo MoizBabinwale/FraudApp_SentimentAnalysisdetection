@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import I1 from "../img/bar.png"
 import { Link, useNavigate } from 'react-router-dom'
-import I2 from "../img/fradapp.jpg"
+import I6 from "../img/I6.png"
 import I4 from "../img/I4.jpg"
 
 function Navbar() {
@@ -42,7 +42,7 @@ function Navbar() {
                 <div className="logo">
                     <Link to='/'><h1>FRAUD APP</h1></Link>
                 </div>
-                <ul className={`${showLinks ? 'show-links' : 'click'}`}>
+                <ul className={`${showLinks ? 'show-links' : 'click'} ${isLogin && isadmin ? 'logged-in' : 'not-logged-in'}`}>
                     {/* <i className="fa fa-times" onClick="hideMenu()"></i> */}
                     <Link to='/'>
                         <li><a href='/'>Home</a></li>
@@ -80,7 +80,7 @@ function Navbar() {
                 </Link>
             </nav>
             {isLogin ? (<div className='ImageContainer'>
-                <img src={I2} alt='Wallpaper' />
+                <img src={I6} alt='Wallpaper' />
             </div>) : (
                 <div className='ImageContainer'>
                     <img src={I4} alt='Wallpaper' />

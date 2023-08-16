@@ -8,9 +8,8 @@ import Register from './components/Auth/Register'
 import Upload from './components/Upload'
 import ErrorPage from './components/ErrorPage'
 import ReviewPage from './components/ReviewPage'
-import SentimentAnalysisComponent from './components/SentimentAnalysisComponent'
 
-const AllRoutes = ({ loginStatus, isLogin, setAdmin }) => {
+const AllRoutes = ({ setAdmin }) => {
     return (
         <Routes>
             <Route path='/' element={<Home />} />
@@ -18,7 +17,6 @@ const AllRoutes = ({ loginStatus, isLogin, setAdmin }) => {
             <Route path='/register' element={<Register />} />
             <Route path='/upload' element={<Upload />} />
             <Route path='/review' element={<ReviewPage />} />
-            <Route path='/SentimentAnalysisComponent' element={<SentimentAnalysisComponent />} />
             <Route path='/userList' element={<UserList setAdmin={setAdmin} />} />
             <Route path="*" element={<ErrorPage />} ></Route>
         </Routes>

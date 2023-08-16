@@ -8,6 +8,10 @@ import ManualUpload from './ManualUpload';
 import { uploadCSV } from '../api';
 import axios from 'axios';
 import { Form } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import excelFile from "../reviewAppSheet.csv"
+// import XLSX from 'xlsx';
 
 const useStyles = makeStyles((theme) => ({
     formContainer: {
@@ -32,6 +36,7 @@ export default function UploadFile() {
     const classes = useStyles();
     const [appName, setAppName] = useState('');
     const [starRating, setStarRating] = useState(0);
+    const navigate = useNavigate()
 
     const handleAppNameChange = (event) => {
         setAppName(event.target.value);
@@ -56,30 +61,76 @@ export default function UploadFile() {
         e.preventDefault();
 
         if (!selectedFile) {
-            console.log('Please select a file to upload.');
+            toast.error('Please select a file to upload!', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             return;
         }
 
         const formData = new FormData();
         formData.append('file', selectedFile);
-
+        var file = formData
         const headers = {
             'Content-Type': 'multipart/form-data',
             'zoneid': 'Asia/Kolkata',
         };
         try {
-            const response = await axios.post(uploadCSV, formData, { headers })
+            const response = await axios.post(uploadCSV, file, { headers })
             console.log(response);
+            if (response) {
+                toast.success('Csv Uploaded successfully!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                setTimeout(() => {
+                    navigate("/")
+                }, 2500);
+            } else {
+                toast.success('Something went wrong!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                return
+            }
         } catch (error) {
             console.error('Error:', error.message);
 
         }
     }
 
+    const handleDownload = () => {
 
+        const link = document.createElement('a');
+        link.href = excelFile;
+        link.download = 'downloaded-excel-file.xlsx';
+        link.click();
+    };
     return (
         <div className='col-12 col-lg-12 ol-sm-12 d-flex justify-content-center ailgn-item-center'>
             <div className="upload-container">
+                <div>
+                    <h1>Get Formated Excel File</h1>
+                    <button onClick={handleDownload} style={{ marginLeft: "100px", borderRadius: "20px", backgroundColor: "black", color: "white" }}>Download Demo File</button>
+                </div>
                 <form enctype="multipart/form-data" className="upload-form">
                     <label for="file-upload">Select a file to upload:</label>
                     <input type="file" id="file-upload" name="fileToUpload" accept=".csv" onChange={selectDocumentHandler} ref={fileInputRef} />

@@ -45,7 +45,6 @@ function Login() {
             })
             const response = await axios.post(logIn, requestData, { headers })
             if (response.status === 200) {
-                console.log(response);
                 var userDetails = response.data
                 sessionStorage.setItem("userDetails", JSON.stringify(userDetails))
                 toast.success('Login success!', {
@@ -70,6 +69,7 @@ function Login() {
                         window.location.reload()
                     }
                 }, 2500);
+                setLoading(false)
             } else {
                 toast.error('User does not exist...!', {
                     position: "top-right",
@@ -86,6 +86,7 @@ function Login() {
             setLoading(false)
         } catch (error) {
             console.log("error ", error);
+            setLoading(false)
         }
     }
     return (<>
